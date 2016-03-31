@@ -1,0 +1,14 @@
+--- config.gcc	2016-03-26 16:08:54.023441794 +0000
++++ config.gcc.new	2016-03-26 16:09:44.124454966 +0000
+@@ -1375,8 +1375,9 @@
+ 	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h newlib-stdint.h i386/i386elf.h"
+ 	;;
+ x86_64-*-elf*)
+-	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h newlib-stdint.h i386/i386elf.h i386/x86-64.h"
+-	;;
++	tmake_file="${tmake_file} i386/t-x86_64-elf" # include the new multilib configuration
++ 	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h newlib-stdint.h i386/i386elf.h i386/x86-64.h"
++ 	;;
+ i[34567]86-*-rdos*)
+     tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h newlib-stdint.h i386/i386elf.h i386/rdos.h"
+     ;;
