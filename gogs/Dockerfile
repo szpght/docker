@@ -22,7 +22,8 @@ RUN set -x \
 	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
 	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
 	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
+	&& gosu nobody true \
+	&& rm -rf /var/lib/apt/lists/*
 
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
 RUN set -x \
@@ -41,7 +42,8 @@ RUN set -x \
 	&& sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
 	&& apt-get install -y \
 		postgresql-$PG_MAJOR \
-		postgresql-contrib-$PG_MAJOR
+		postgresql-contrib-$PG_MAJOR \
+	&& rm -rf /var/lib/apt/lists/*
 
 # make the sample config easier to munge (and "correct by default")
 RUN set -x \
@@ -69,6 +71,8 @@ RUN set -x \
     && mkdir -p /var/lib/gogs /var/log/gogs \
     && chown -R gogs:gogs /usr/local/gogs /var/lib/gogs /var/log/gogs
 
+COPY files/launch.sh /usr/local/gogs/launch.sh
+
 
 # ------------
 # Install sshd
@@ -77,7 +81,7 @@ RUN set -x \
 RUN set -x \
 	&& mkdir -p /var/run/sshd \
 	&& chmod 700 /var/run/sshd \
-	&& sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+	&& sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
 	&& sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 
@@ -86,7 +90,6 @@ RUN set -x \
 # ----------------
 
 COPY files/docker-entrypoint.sh /docker-entrypoint.sh
-COPY files/launch.sh /usr/local/gogs/launch.sh
 
 RUN set -x \
 	&& chmod 700 /docker-entrypoint.sh \
@@ -95,7 +98,6 @@ RUN set -x \
 
 VOLUME /var/lib/postgresql/data
 VOLUME /var/lib/gogs
-VOLUME /var/log/gogs
 
 EXPOSE 22 3000
 

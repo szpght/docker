@@ -46,6 +46,10 @@ function start_postgres {
 	" >/dev/null 2>/dev/null
 }
 
+function start_sshd {
+	/usr/sbin/sshd
+}
+
 function start_gogs {
 	export GOGSBIN=/usr/local/gogs
 	export GOGSDATA=/var/lib/gogs
@@ -62,6 +66,7 @@ function start_gogs {
 # Start postgres, ssh and gogs if no args were supplied
 if [ "$1" == "start" ]; then
 	start_postgres
+	start_sshd
 	start_gogs
 	exit 0
 fi

@@ -1,23 +1,40 @@
 #!/bin/bash
+set -e
 
-scriptdir="`dirname \"$0\"`"
-vardir=${scriptdir}/var
-lib_pg=${vardir}/lib/postgres/data
-lib_gogs=${vardir}/lib/gogs
-log_gogs=${vardir}/log/gogs
+#----------------------------------------------------------------------
+# Configuration
+# Modify the following variables to adjust your gogs setup.
 
-mkdir -p ${lib_pg} ${lib_gogs} ${log_gogs}
-lib_pg=$(realpath ${lib_pg})
-lib_gogs=$(realpath ${lib_gogs})
-log_gogs=$(realpath ${log_gogs})
+# HTTP_PORT
+#    The port on which the gogs web server will listen
+HTTP_PORT=3000
+
+# SSH_PORT
+#    The port on which the gogs ssh server will listen
+SSH_PORT=9092
+
+# DATA_DIR
+#    The directory in which all gogs data will be created and stored.
+#    Must be an absolute path.
+DATA_DIR=/volume1/gogs
+
+#----------------------------------------------------------------------
+
+dir_vol=${DATA_DIR}/volumes
+lib_pg=${dir_vol}/var/lib/postgres/data
+lib_gogs=${dir_vol}/var/lib/gogs
+log_gogs=${dir_vol}/var/log/gogs
+home_gogs=${dir_vol}/home/gogs
+mkdir -p ${lib_pg} ${lib_gogs} ${log_gogs} ${home_gogs}
 
 docker run \
 	-d \
-	-p 3000:3000 \
-	-p 9092:22 \
+	-p ${HTTP_PORT}:3000 \
+	-p ${SSH_PORT}:22 \
 	-v ${lib_pg}:/var/lib/postgresql/data \
 	-v ${lib_gogs}:/var/lib/gogs \
 	-v ${log_gogs}:/var/log/gogs \
+	-v ${home_gogs}:/home/gogs \
 	--name gogs \
 	brett/gogs \
 	start

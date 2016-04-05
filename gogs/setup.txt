@@ -1,0 +1,19 @@
+On install steps:
+
+Database Type: PostgreSQL
+Host: 127.0.0.1:5432
+User: gogs
+Password: <none>
+Database Name: gogs
+SSL Mode: Disable
+
+Application Name: Gogs
+Repository Root Path: /var/lib/gogs
+Run User: gogs
+Domain: <your-domain>
+SSH Port: 9092
+HTTP Port: 3000
+Application URL: http://<your-domain>:3000/
+Log Path: /var/log/gogs
+
+Disable Captcha
