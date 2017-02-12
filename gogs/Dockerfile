@@ -65,9 +65,9 @@ ENV PGDATA /var/lib/postgresql/data
 
 RUN set -x \
     && cd /tmp \
-    && wget -q https://dl.gogs.io/gogs_v0.9.13_linux_amd64.tar.gz \
-    && tar -C /usr/local -xzf /tmp/gogs_v0.9.13_linux_amd64.tar.gz \
-    && rm /tmp/gogs_v0.9.13_linux_amd64.tar.gz \
+    && wget -q https://dl.gogs.io/gogs_v0.9.141_linux_amd64.tar.gz \
+    && tar -C /usr/local -xzf /tmp/gogs_v0.9.141_linux_amd64.tar.gz \
+    && rm /tmp/gogs_v0.9.141_linux_amd64.tar.gz \
     && mkdir -p /var/lib/gogs /var/log/gogs \
     && chown -R gogs:gogs /usr/local/gogs /var/lib/gogs /var/log/gogs
 
