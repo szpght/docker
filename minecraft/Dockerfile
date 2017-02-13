@@ -11,7 +11,6 @@ RUN set -x \
 	&& wget -q https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar \
 	&& java -jar BuildTools.jar \
 	&& mkdir /spigot \
-	&& cp spigot-1.10.2.jar /spigot \
-	&& /* UPDATE /spigot/eula.txt */
+	&& cp spigot-1.11.2.jar /spigot
 
 CMD ["/bin/bash"]
