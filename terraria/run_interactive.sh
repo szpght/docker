@@ -11,7 +11,7 @@ PORT=7777
 
 # TERRARIA_DIR
 #    The directory containing terraria *.wld files
-TERRARIA_DIR=/home/brett/terraria/world
+TERRARIA_DIR=/home/brett/docker/terraria/world
 
 # WORLD_FILE
 #    The .wld file within the world directory to run on the server
