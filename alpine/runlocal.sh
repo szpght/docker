@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm -it alpine:brett /bin/bash
+docker run --rm -it brett/alpine /bin/bash
