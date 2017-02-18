@@ -20,7 +20,7 @@ WORLD_FILE=home.wld
 #----------------------------------------------------------------------
 
 docker run \
-	-d \
+	-dit \
 	-p ${PORT}:7777 \
 	-v ${TERRARIA_DIR}:/world \
 	--name="terraria" \
