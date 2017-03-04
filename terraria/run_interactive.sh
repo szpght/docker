@@ -24,6 +24,6 @@ docker run \
 	-it \
 	-p ${PORT}:7777 \
 	-v ${TERRARIA_DIR}:/world \
-	--name="terraria" \
+	--name="terraria_tmp" \
 	brett/terraria:latest \
 	-world /world/${WORLD_FILE}
