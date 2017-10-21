@@ -1,4 +1,4 @@
-# gcc 7.1.0 x86_64-elf cross-compiler container
+# gcc 7.2.0 x86_64-elf cross-compiler container
 
 FROM debian:jessie
 MAINTAINER Brett Vickers
@@ -14,22 +14,22 @@ RUN set -x \
 RUN set -x \
 	&& mkdir -p /usr/local/src \
 	&& cd /usr/local/src \
-	&& wget -q ftp://ftp.gnu.org/gnu/binutils/binutils-2.28.tar.gz \
-	&& wget -q ftp://ftp.gnu.org/gnu/gcc/gcc-7.1.0/gcc-7.1.0.tar.gz \
-	&& tar zxf binutils-2.28.tar.gz \
-	&& tar zxf gcc-7.1.0.tar.gz \
-	&& rm binutils-2.28.tar.gz gcc-7.1.0.tar.gz \
-	&& chown -R root:root binutils-2.28 \
-	&& chown -R root:root gcc-7.1.0 \
-	&& chmod -R o-w,g+w binutils-2.28 \
-	&& chmod -R o-w,g+w gcc-7.1.0
+	&& wget -q ftp://ftp.gnu.org/gnu/binutils/binutils-2.29.tar.gz \
+	&& wget -q ftp://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.gz \
+	&& tar zxf binutils-2.29.tar.gz \
+	&& tar zxf gcc-7.2.0.tar.gz \
+	&& rm binutils-2.29.tar.gz gcc-7.2.0.tar.gz \
+	&& chown -R root:root binutils-2.29 \
+	&& chown -R root:root gcc-7.2.0 \
+	&& chmod -R o-w,g+w binutils-2.29 \
+	&& chmod -R o-w,g+w gcc-7.2.0
 
 # Copy compile scripts
 COPY files/src /usr/local/src/
 
 # Copy gcc patches
-COPY files/gcc/t-x86_64-elf /usr/local/src/gcc-7.1.0/gcc/config/i386/
-COPY files/gcc/config.gcc.patch /usr/local/src/gcc-7.1.0/gcc/
+COPY files/gcc/t-x86_64-elf /usr/local/src/gcc-7.2.0/gcc/config/i386/
+COPY files/gcc/config.gcc.patch /usr/local/src/gcc-7.2.0/gcc/
 
 # Build and install binutils and the cross-compiler
 RUN set -x \
