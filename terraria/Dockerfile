@@ -3,7 +3,7 @@ FROM debian:jessie
 # Modified from Dockerfile created by Ryan Sheehan
 # <https://github.com/ryansheehan/terraria/blob/master/Dockerfile>
 # See LICENSE file.
-MAINTAINER Brett Vickers <https://github.com/beevik>
+LABEL maintainer "Brett Vickers <github.com/beevik>"
 
 ENV GOSU_VERSION 1.7
 

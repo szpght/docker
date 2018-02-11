@@ -1,4 +1,5 @@
 FROM debian:jessie
+LABEL maintainer "Brett Vickers <github.com/beevik>"
 
 # ----------------
 # Install Postgres
