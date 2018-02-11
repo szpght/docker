@@ -1,7 +1,7 @@
 # gcc 7.3.0 x86_64-elf cross-compiler container
 
 FROM debian:jessie
-LABEL Mainted by Brett Vickers
+LABEL maintainer "Brett Vickers <github.com/beevik>"
 
 # Install cross-compiler prerequisites
 RUN set -x \

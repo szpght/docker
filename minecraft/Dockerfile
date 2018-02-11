@@ -1,7 +1,7 @@
 # minecraft spigot server container
 
 FROM debian:jessie
-MAINTAINER Brett Vickers
+LABEL maintainer "Brett Vickers <github.com/beevik>"
 
 RUN set -x \
 	&& apt-get update \

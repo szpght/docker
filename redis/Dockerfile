@@ -1,4 +1,5 @@
 FROM alpine
+LABEL maintainer "Brett Vickers <github.com/beevik>"
 
 RUN set -x \
 	&& addgroup -g 1000 redis \
