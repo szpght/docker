@@ -1,0 +1,24 @@
+On install steps:
+
+Database Type: PostgreSQL
+Host: 127.0.0.1:5432
+User: gitea
+Password: <none>
+Database Name: gitea
+SSL Mode: Disable
+
+Application Name: Gitea
+Repository Root Path: /var/lib/gitea
+Run User: gitea
+Domain: <domain>
+SSH Port: 9093
+HTTP Port: 3000
+Application URL: https://<domain>:3001/
+Log Path: /var/log/gitea
+
+Set admin account name and password
+
+To add https support, edit the app.ini file's [server] section:
+PROTOCOL=https
+CERT_FILE=/var/lib/gitea/cert/server.crt
+KEY_FILE=/var/lib/gitea/cert/server.key
