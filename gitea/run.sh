@@ -36,5 +36,6 @@ docker run \
 	-v ${log_gitea}:/var/log/gitea \
 	-v ${home_gitea}:/home/gitea \
 	--name gitea \
+	--init \
 	gitea \
 	start
