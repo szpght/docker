@@ -75,9 +75,11 @@ RUN set -x \
 # Install gitea
 # -------------
 
+ENV GITEA_VERSION 1.3.3
+
 RUN set -x \
     && cd /tmp \
-    && wget -q -O gitea https://github.com/go-gitea/gitea/releases/download/v1.3.3/gitea-1.3.3-linux-amd64 \
+    && wget -q -O gitea https://github.com/go-gitea/gitea/releases/download/v$GITEA_VERSION/gitea-$GITEA_VERSION-linux-amd64 \
 	&& mkdir -p /usr/local/gitea /var/lib/gitea /var/log/gitea \
 	&& mv /tmp/gitea /usr/local/gitea \
 	&& chown -R gitea:gitea /usr/local/gitea /var/lib/gitea /var/log/gitea \
