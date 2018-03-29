@@ -75,7 +75,7 @@ RUN set -x \
 # Install gitea
 # -------------
 
-ENV GITEA_VERSION 1.3.3
+ENV GITEA_VERSION 1.4.0
 
 RUN set -x \
     && cd /tmp \
