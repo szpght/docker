@@ -8,6 +8,7 @@ docker run \
 	--init \
 	--restart always \
 	-v ${data}:/data \
+	--init \
 	--name redis \
-	brett/redis \
+	redis:5.0-rc \
 	redis-server --appendonly yes
