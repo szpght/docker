@@ -5,10 +5,9 @@ data=$(realpath volumes/data)
 docker run \
 	-d \
 	-p 6379:6379 \
+	--name redis \
 	--init \
 	--restart always \
 	-v ${data}:/data \
-	--init \
-	--name redis \
-	redis:5.0-rc \
+	redis:4.0 \
 	redis-server --appendonly yes
