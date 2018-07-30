@@ -9,5 +9,5 @@ docker run \
 	--init \
 	--restart always \
 	-v ${data}:/data \
-	redis:4.0 \
+	brett/redis \
 	redis-server --appendonly yes
