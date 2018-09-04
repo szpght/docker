@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:jessie
 LABEL maintainer "Brett Vickers <github.com/beevik>"
 
 # ----------------
@@ -11,44 +11,31 @@ RUN set -x \
 	&& adduser --disabled-password --gecos 'Gitea' --uid 1000 --ingroup gitea gitea
 
 # grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.10
-RUN set -ex; \
-	\
-	fetchDeps=" \
-		ca-certificates \
-		dirmngr \
-		gnupg \
-		locales \
-		git \
-		openssh-server \
-		sudo \
-		wget \
-	"; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends $fetchDeps $moreDeps; \
-	rm -rf /var/lib/apt/lists/*; \
-	\
-	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
-	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
-	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
-	export GNUPGHOME="$(mktemp -d)"; \
-	gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
-	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
-	gpgconf --kill all; \
-	rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc; \
-	chmod +x /usr/local/bin/gosu; \
-	gosu nobody true;
+ENV GOSU_VERSION 1.7
+RUN set -x \
+	&& sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates git wget locales sudo git openssh-server \
+	&& wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+	&& wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+	&& export GNUPGHOME="$(mktemp -d)" \
+	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+	&& chmod +x /usr/local/bin/gosu \
+	&& gosu nobody true \
+	&& rm -rf /var/lib/apt/lists/*
 
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
 RUN set -x \
 	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
-RUN apt-key adv --keyserver ipv4.pool.sks-keyservers.net --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
-ENV PG_MAJOR 9.6
+ENV PG_MAJOR 9.5
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
 RUN set -x \
 	&& apt-get update \
