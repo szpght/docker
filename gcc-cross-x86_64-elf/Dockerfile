@@ -3,7 +3,7 @@
 FROM debian:stretch
 LABEL maintainer "Brett Vickers <github.com/beevik>"
 
-ARG BINUTILS_VERSION=2.31
+ARG BINUTILS_VERSION=2.31.1
 ARG GCC_VERSION=8.2.0
 
 # Install cross-compiler prerequisites
