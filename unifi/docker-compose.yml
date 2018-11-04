@@ -2,17 +2,23 @@ version: '2.2'
 services:
 
   mongo:
+    container_name: unifi_mongo
     image: mongo:3.4
     networks:
       - unifi
+    logging:
+      driver: "json-file"
     restart: always
     volumes:
       - db:/data/db
 
-  controller:
+  unifi:
+    container_name: unifi
     image: "jacobalberty/unifi:${TAG:-latest}"
     depends_on:
       - mongo
+    logging:
+      driver: "json-file"
     init: true
     networks:
       - unifi
@@ -21,6 +27,7 @@ services:
       - data:/unifi/data
       - log:/unifi/log
       - /var/services/homes/brett/cert_unifi:/unifi/cert
+      - /var/services/homes/brett/unifi-docker/config.gateway.json:/unifi/data/sites/default/config.gateway.json
     environment:
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
