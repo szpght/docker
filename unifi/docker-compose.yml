@@ -14,7 +14,7 @@ services:
 
   unifi:
     container_name: unifi
-    image: "jacobalberty/unifi:${TAG:-latest}"
+    image: "brett/unifi"
     depends_on:
       - mongo
     logging:
