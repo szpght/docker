@@ -27,7 +27,7 @@ services:
       - data:/unifi/data
       - log:/unifi/log
       - /var/services/homes/brett/cert_unifi:/unifi/cert
-      - /var/services/homes/brett/unifi-docker/config.gateway.json:/unifi/data/sites/default/config.gateway.json
+      - /var/services/homes/brett/unifi/config.gateway.json:/unifi/data/sites/default/config.gateway.json
     environment:
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
